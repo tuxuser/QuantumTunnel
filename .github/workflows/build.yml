@@ -25,3 +25,26 @@ jobs:
       with:
         name: QuantumTunnel-dotnet
         path: 'bin/Release/net6.0/*'
+
+    - name: Build (standalone)
+      run: dotnet publish -c Release --self-contained -r win-x64 -p:PublishTrimmed=true -p:PublishSingleFile=true
+    - name: Prepare standalone release
+      run: |
+        mkdir release
+        xcopy README.md release\
+        xcopy bin\Release\net6.0\win-x64\publish\QuantumTunnel.exe release/
+        7z a -tzip QuantumTunnel.zip release\*
+        dir .
+
+    - name: Upload artifacts (standalone)
+      uses: actions/upload-artifact@v2
+      with:
+        name: QuantumTunnel
+        path: |
+          'bin/Release/net6.0/win-x64/publish/QuantumTunnel.exe'
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      # if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: QuantumTunnel.zip
