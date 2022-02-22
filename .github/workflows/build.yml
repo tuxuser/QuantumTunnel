@@ -34,7 +34,6 @@ jobs:
         xcopy README.md release\
         xcopy bin\Release\net6.0\win-x64\publish\QuantumTunnel.exe release\
         7z a -tzip QuantumTunnel.zip .\release\*
-        dir .
 
     - name: Upload artifacts (standalone)
       uses: actions/upload-artifact@v2
