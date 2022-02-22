@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: QuantumTunnel-dotnet
-        path: 'bin\Release\nt6.0\*'
+        path: bin/Release/net6.0/*
 
     - name: Build (standalone)
       run: dotnet publish -c Release --self-contained -r win-x64 -p:PublishTrimmed=true -p:PublishSingleFile=true
@@ -41,7 +41,7 @@ jobs:
       with:
         name: QuantumTunnel
         path: |
-          'release\*'
+          release/*
 
     - name: Release
       uses: softprops/action-gh-release@v1
